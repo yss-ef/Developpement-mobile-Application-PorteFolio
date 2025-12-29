@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import '../components/MyDrawer.dart';
 import './HomePage.dart';
 import './ContactPage.dart';
 import './InfoPage.dart';
@@ -13,33 +14,51 @@ class PrincipalPage extends StatefulWidget {
 }
 
 class _PrincipalPageState extends State<PrincipalPage> {
-  // Variable de navigation
   int _page = 0;
-  // Liste de pages a afficher
-  List<Widget> screens = [HomePage(), ContactPage(), InfoPage(), ProjectPage()];
 
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+
+  final List<Widget> screens = [
+    const HomePage(),
+    const ContactPage(),
+    const InfoPage(),
+    const ProjectPage()
+  ];
+
+  void _onDrawerItemTapped(int index) {
+    setState(() {
+      _page = index;
+      final state = _bottomNavigationKey.currentState;
+      state?.setPage(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      // --- Widget bar de navigation navigation ---
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.blueAccent, size: 30),
+      ),
+
+      drawer: MyDrawer(onTapIndex: _onDrawerItemTapped),
+
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
-        index: 0,
-        items: <Widget>[
+        index: _page,
+        items: const <Widget>[
           Icon(Icons.home, size: 30),
+          Icon(Icons.phone, size: 30),
           Icon(Icons.info, size: 30),
-          Icon(Icons.local_library_rounded, size: 30),
-          Icon(Icons.picture_as_pdf, size: 30),
-          Icon(Icons.perm_identity, size: 30),
+          Icon(Icons.hub, size: 30),
         ],
         color: Colors.white,
         buttonBackgroundColor: Colors.white,
-        backgroundColor: Colors.yellow,
+        backgroundColor: const Color(0xFFF5F5F5),
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 600),
+        animationDuration: const Duration(milliseconds: 600),
         onTap: (index) {
           setState(() {
             _page = index;
