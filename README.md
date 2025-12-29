@@ -6,17 +6,9 @@ Ce projet consiste en une application mobile développée avec le framework **Fl
 ## 2. Aperçu de l'interface
 Voici les captures d'écran des différentes sections de l'application :
 
-### Page d'Accueil
-![Accueil](assets/images/screen_home.jpeg)
-
-### Liste des Projets (API GitHub)
-![Projets](assets/images/screen_projet.jpeg)
-
-### Informations Personnelles
-![Infos](assets/images/screen_info.jpeg)
-
-### Contact
-![Contact](assets/images/screen_contact.jpeg)
+| Accueil | Projets | Infos | Contact |
+| :---: | :---: | :---: | :---: |
+| ![Accueil](assets/images/screen_home.jpeg) | ![Projets](assets/images/screen_projet.jpeg) | ![Infos](assets/images/screen_info.jpeg) | ![Contact](assets/images/screen_contact.jpeg) |
 
 ## 3. Architecture Technique
 Le projet respecte une organisation structurée pour favoriser la maintenance et l'évolutivité :
