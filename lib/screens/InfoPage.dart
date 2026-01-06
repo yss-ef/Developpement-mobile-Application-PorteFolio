@@ -11,28 +11,35 @@ class InfoPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Mon Parcours"),
         centerTitle: true,
-        backgroundColor:  const Color(0xFFF5F5F5),
+        backgroundColor: const Color(0xFFF5F5F5),
         elevation: 0,
-        titleTextStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+        // Style simple, sans police personnalisée
+        titleTextStyle: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20
+        ),
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          const _SectionTitle(title: "Formation")
+          // --- FORMATION ---
+          _buildTitreSection("Formation")
               .animate().fade().slideX(begin: -0.2),
 
           Column(
             children: [
-              _buildEducationItem("2025 - Présent", "Cycle d'Ingénieur", "Université Mundiapolis", true),
-              _buildEducationItem("2024 - 2025", "Licence (LST) Génie Logiciel", "FST Errachidia", false),
-              _buildEducationItem("2022 - 2024", "DEUST MIP", "FST Errachidia", false),
+              _buildEcole("2025 - Présent", "Cycle d'Ingénieur", "Université Mundiapolis", true),
+              _buildEcole("2024 - 2025", "Licence (LST) Génie Logiciel", "FST Errachidia", false),
+              _buildEcole("2022 - 2024", "DEUST MIP", "FST Errachidia", false),
             ].animate(interval: 100.ms).fade().slideY(begin: 0.2),
           ),
 
           const SizedBox(height: 25),
 
-          const _SectionTitle(title: "Certifications")
+          // --- CERTIFICATIONS ---
+          _buildTitreSection("Certifications")
               .animate().fade(delay: 300.ms).slideX(begin: -0.2),
 
           Container(
@@ -40,18 +47,25 @@ class InfoPage extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.orange.withOpacity(0.5)),
+              // Bordure orange simple
+              border: Border.all(color: Colors.orange),
             ),
             child: Row(
-              children: const [
-                Icon(Icons.workspace_premium, color: Colors.orange, size: 30),
-                SizedBox(width: 15),
+              children: [
+                const Icon(Icons.workspace_premium, color: Colors.orange, size: 30),
+                const SizedBox(width: 15),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("AWS Academy", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, fontFamily: "poppins")),
-                      Text("Graduate Cloud Foundations", style: TextStyle(color: Colors.grey, fontFamily: "roboto")),
+                    children: const [
+                      Text(
+                          "AWS Academy",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                      ),
+                      Text(
+                          "Graduate Cloud Foundations",
+                          style: TextStyle(color: Colors.grey)
+                      ),
                     ],
                   ),
                 )
@@ -61,31 +75,34 @@ class InfoPage extends StatelessWidget {
 
           const SizedBox(height: 25),
 
+          // --- LANGUES ET SOFT SKILLS (2 COLONNES) ---
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Colonne Gauche : Langues
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    _SectionTitle(title: "Langues"),
-                    _SkillChip("Français (Courant)"),
-                    _SkillChip("Anglais (Technique)"),
-                    _SkillChip("Arabe (Natif)"),
+                  children: [
+                    _buildTitreSection("Langues"),
+                    _buildChip("Français (Courant)"),
+                    _buildChip("Anglais (Technique)"),
+                    _buildChip("Arabe (Natif)"),
                   ],
                 ).animate(delay: 500.ms).fade().slideX(begin: -0.3),
               ),
 
               const SizedBox(width: 15),
 
+              // Colonne Droite : Soft Skills
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    _SectionTitle(title: "Soft Skills"),
-                    _SkillChip("Travail d'équipe"),
-                    _SkillChip("Résolution Problèmes"),
-                    _SkillChip("Autonomie"),
+                  children: [
+                    _buildTitreSection("Soft Skills"),
+                    _buildChip("Travail d'équipe"),
+                    _buildChip("Résolution Problèmes"),
+                    _buildChip("Autonomie"),
                   ],
                 ).animate(delay: 500.ms).fade().slideX(begin: 0.3),
               ),
@@ -96,7 +113,20 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildEducationItem(String year, String title, String school, bool isCurrent) {
+  // --- MÉTHODES D'AIDE (HELPERS) ---
+  // Les étudiants préfèrent souvent faire des méthodes ici plutôt que des classes séparées
+
+  Widget _buildTitreSection(String titre) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Text(
+          titre,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+      ),
+    );
+  }
+
+  Widget _buildEcole(String annee, String titre, String ecole, bool estActuel) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(15),
@@ -104,51 +134,49 @@ class InfoPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        border: isCurrent ? Border.all(color: Colors.blueAccent) : null,
+        // Si c'est l'actuel, on met une bordure bleue
+        border: estActuel ? Border.all(color: Colors.blueAccent) : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Badge Année
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: isCurrent ? Colors.blueAccent : Colors.grey[200],
+              color: estActuel ? Colors.blueAccent : Colors.grey[200],
               borderRadius: BorderRadius.circular(5),
             ),
-            child: Text(year, style: TextStyle(fontSize: 12, color: isCurrent ? Colors.white : Colors.black87, fontWeight: FontWeight.bold, fontFamily: "poppins")),
+            child: Text(
+                annee,
+                style: TextStyle(
+                    fontSize: 12,
+                    color: estActuel ? Colors.white : Colors.black87,
+                    fontWeight: FontWeight.bold
+                )
+            ),
           ),
           const SizedBox(height: 8),
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Text(school, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+          Text(titre, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          Text(ecole, style: const TextStyle(color: Colors.grey, fontSize: 13)),
         ],
       ),
     );
   }
-}
 
-class _SectionTitle extends StatelessWidget {
-  final String title;
-  const _SectionTitle({required this.title});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: "poppins")),
-    );
-  }
-}
-
-class _SkillChip extends StatelessWidget {
-  final String label;
-  const _SkillChip(this.label);
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildChip(String label) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
-      child: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, fontFamily: "roboto")),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10)
+      ),
+      child: Text(
+          label,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500)
+      ),
     );
   }
 }
