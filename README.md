@@ -86,4 +86,6 @@ flutter run -d android
 
 ---
 
-*Developed by Youssef Fellah as part of a Flutter skills assessment.*
+*Authored by Youssef Fellah.*
+
+*Developed as part of the 2nd year Engineering Cycle - Mundiapolis University.*
