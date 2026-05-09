@@ -75,6 +75,5 @@ To compile and deploy the application locally on an Android emulator or physical
     flutter run -d android
     ```
 
----
-*Authored by Youssef Fellah.*
-*Developed for the Engineering Cycle - Mundiapolis University.*
+Authored by Youssef Fellah.  
+Developed for the Engineering Cycle - Mundiapolis University.
