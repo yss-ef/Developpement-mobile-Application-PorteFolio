@@ -76,7 +76,5 @@ To compile and deploy the application locally on an Android emulator or physical
     ```
 
 ---
-
 *Authored by Youssef Fellah.*
-
 *Developed for the Engineering Cycle - Mundiapolis University.*
